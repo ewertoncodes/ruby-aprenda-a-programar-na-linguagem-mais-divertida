@@ -96,3 +96,33 @@
 #   puts "Numero:#{numero}"
 #   numero +=1
 # end  
+
+# nome = "Linguagem Ruby"
+# isbn = "123-45678901-2"
+# numeros_de_paginas = 245
+# preco = 69.90
+
+# desconto = 0.1
+# preco_com_desconto = preco - (preco * desconto)
+
+# nome = "Test Driven Development: Teste e Design no Mundo Real"
+# isbn = "342-65675751-1"
+# numero_paginas = 212
+# preco = 89.90
+# desconto = 0.1
+
+# def preco_com_desconto preco, desconto
+#   valor = preco - (preco * desconto)
+#   valor.round(2)
+# end
+
+# puts preco_com_desconto preco, desconto
+
+class Livro
+  def initialize(escritor, numeros_de_paginas, isbn)
+    puts "Escritor #{escritor}, Números: #{numeros_de_paginas}, ISBN:#{isbn}"
+  end
+end
+
+teste_e_design = Livro.new "Mauricio Aniche", 247, "123456"
+web_design_responsivo = Livro.new "Tarcio Zemel", 189, "1233213"
