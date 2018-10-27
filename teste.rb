@@ -118,11 +118,33 @@
 
 # puts preco_com_desconto preco, desconto
 
-class Livro
-  def initialize(escritor, numeros_de_paginas, isbn)
-    puts "Escritor #{escritor}, Números: #{numeros_de_paginas}, ISBN:#{isbn}"
-  end
-end
+# class Livro
+#   def initialize(escritor, numeros_de_paginas, isbn)
+#     puts "Escritor #{escritor}, Números: #{numeros_de_paginas}, ISBN:#{isbn}"
+#   end
+# end
 
-teste_e_design = Livro.new "Mauricio Aniche", 247, "123456"
-web_design_responsivo = Livro.new "Tarcio Zemel", 189, "1233213"
+# teste_e_design = Livro.new "Mauricio Aniche", 247, "123456"
+# web_design_responsivo = Livro.new "Tarcio Zemel", 189, "1233213"
+
+# numeros = [1, 2, 3]
+# puts numeros[0]
+# puts numeros[1]
+# puts numeros[2]
+
+# puts numeros.first
+# puts numeros.last
+
+# numeros << "Olá"
+# puts numeros
+
+# def multiplica_ultimo_numero_por_2(numeros)
+#   puts 2 * numeros.first
+# end  
+
+# multiplica_ultimo_numero_por_2 numeros
+
+# biblioteca = Biblioteca.new
+
+# teste_e_design = Livro.new "Mauricio Aniche","123454", 247, 70.5
+# web_design_responsivo = Livro.new "Tárcio Zemel", "452565", 189, 67.9
