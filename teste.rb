@@ -144,7 +144,18 @@
 
 # multiplica_ultimo_numero_por_2 numeros
 
-# biblioteca = Biblioteca.new
 
-# teste_e_design = Livro.new "Mauricio Aniche","123454", 247, 70.5
-# web_design_responsivo = Livro.new "Tárcio Zemel", "452565", 189, 67.9
+
+# nome = "Lucas"
+# puts nome.upcase # => LUCAS
+# puts nome # => Lucas
+
+# nome = "Lucas"
+# puts nome.upcase! # => LUCAS
+# puts nome # => LUCAS
+
+
+biblioteca = Biblioteca.new
+biblioteca.adiciona Livro.new "TDD", "Mauricio Aniche","123454", 247, 69.9, :testes
+biblioteca.adiciona Livro.new "Design Responsivo", "Tárcio Zemel", "45256", 189, 69.9, :web_design
+relatorio = Relatorio.new biblioteca
