@@ -1,3 +1,5 @@
+require File.expand_path("lib/active_file")
+require File.expand_path("lib/document_not_found")
 require File.expand_path("lib/venda_facil")
 require File.expand_path("lib/formatador_moeda")
 require File.expand_path("lib/midia.rb")

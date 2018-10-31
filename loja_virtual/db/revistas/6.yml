@@ -1,0 +1,5 @@
+--- !ruby/object:Revista
+id: 6
+destroyed: false
+new_record: false
+titulo: Folha

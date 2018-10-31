@@ -1,0 +1,6 @@
+--- !ruby/object:Revista
+id: 3
+destroyed: false
+new_record: false
+titulo: Veja
+valor: 10.9

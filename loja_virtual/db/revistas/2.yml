@@ -1,0 +1,6 @@
+--- !ruby/object:Revista
+titulo: Mundo Ruby
+valor: 10.9
+id: 2
+destroyed: false
+new_record: false

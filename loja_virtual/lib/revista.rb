@@ -1,8 +1,6 @@
 class Revista
-  def initialize(titulo)
-    @titulo = titulo
-  end
-  def titulo
-    @titulo
-  end
+  include ActiveFile
+
+  field :titulo
+  field :valor
 end
