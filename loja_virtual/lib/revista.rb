@@ -1,5 +1,8 @@
+require 'bundler/setup'
+require 'my_active_file'
+
 class Revista
-  include ActiveFile
+  include MyActiveFile
 
   field :titulo
   field :valor

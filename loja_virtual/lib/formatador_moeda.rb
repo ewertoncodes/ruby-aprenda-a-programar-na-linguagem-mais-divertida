@@ -1,3 +1,6 @@
+require 'bundler/setup'
+require 'brnumeros'
+
 module FormatadorMoeda
     def metodo_de_instancia
       "um metodo de instancia qualquer"

@@ -1,0 +1,6 @@
+--- !ruby/object:Revista
+id: 9
+destroyed: false
+new_record: false
+titulo: Revista Rails
+valor: 30

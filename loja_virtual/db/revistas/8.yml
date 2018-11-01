@@ -1,0 +1,6 @@
+--- !ruby/object:Revista
+id: 8
+destroyed: false
+new_record: false
+titulo: Veja
+valor: '40'

@@ -1,74 +1,57 @@
-# coding: utf-8
 require "fileutils"
+require 'yaml'
+require 'brnumeros'
+
 
 module ActiveFile
   def save
     @new_record = false
-    File.open("db/revistas/#{@id}.yml", "w") do |file|
-        file.puts serialize
+    File.open("db/revistas/#{@id}.yml", 'w') do |file|
+      file.puts serialize
     end
   end
 
   def destroy
-    unless @destroyed or @new_record
-      @destroyed = true
-      FileUtils.rm "db/revistas/#{@id}.yml"
-    end
+    return unless @destroyed || @new_record
+    @destroyed = true
+    FileUtils.rm "db/revistas/#{@id}.yml"
   end
 
   module ClassMethods
+    def field(name, required: false, default: '')
+      @fields ||= []
+      @fields << Field.new(name, required, default)
+      class_eval %$
+          attr_accessor *#{@fields.map(&:name)}
+          attr_reader :id, :destroyed, :new_record
+          def initialize(#{@fields.map(&:to_argument).join(', ')})
+              @id = self.class.next_id
+              @destroyed = false
+              @new_record = true
+              #{@fields.map(&:to_assign).join("\n")}
+          end    $
+    end
+
     def find(id)
-      raise DocumentNotFound, "Arquivo db/revistas/#{id} nao encontrado.", caller unless File.exists?("db/revistas/#{id}.yml")
-      YAML.load File.open("db/revistas/#{id}.yml", "r")
+      unless File.exist?("db/revistas/#{id}.yml")
+        raise DocumentNotFound, "Arquivo #{id} não encontrado.", caller
+      end
+      YAML.load File.open("db/revistas/#{id}.yml", 'r')
     end
 
     def next_id
-      Dir.glob("db/revistas/*.yml").size + 1
+      Dir.glob('db/revistas/*.yml').size + 1
     end
-      
-    def field(name)
-      @fields ||= []
-      @fields << name
 
-      get = %Q{
-        def #{name}
-            @#{name}
-        end
-      }
-
-      set = %Q{
-        def #{name}=(valor)
-            @#{name}=valor
-        end
-      }
-
-      self.class_eval get
-      self.class_eval set
-    end
-      
     def method_missing(name, *args, &block)
-      super unless name.to_s =~ /^find_by_(.*)/
-
-      argument = args.first
-      field = $1
-
-      super if @fields.include? field
-
+      field = name.to_s.split('_').last
+      super if @fields.map(&:name).include? field
       load_all.select do |object|
-        should_select? object, field, argument
+        object.send(field) == args.first
       end
     end
 
     private
-
-    def should_select?(object, field, argument)
-      if argument.kind_of? Regexp
-        object.send(field) =~ argument
-      else
-        object.send(field) == argument
-      end
-    end
-     
 
     def load_all
       Dir.glob('db/revistas/*.yml').map do |file|
@@ -77,25 +60,34 @@ module ActiveFile
     end
 
     def deserialize(file)
-      YAML.load File.open(file, "r")
+      YAML.load File.open(file, 'r')
+    end
+  end
+
+  class Field
+    attr_reader :name, :required, :default
+
+    def initialize(name, required, default)
+      @name     = name
+      @required = required
+      @default  = default
+    end
+
+    def to_argument
+      "#{@name}: #{@default}"
+    end
+
+    def to_assign
+      "@#{@name} = #{@name}"
     end
   end
 
   def self.included(base)
     base.extend ClassMethods
-    base.class_eval do
-      def initialize(parameters = {})
-        @id = self.class.next_id
-        @destroyed = false
-        @new_record = true
-        parameters.each do |key, value|
-            instance_variable_set "@#{key}", value
-        end
-      end
-    end
   end
 
   private
+
   def serialize
     YAML.dump self
   end
